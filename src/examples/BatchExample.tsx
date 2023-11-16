@@ -95,20 +95,13 @@ export function BatchExample() {
     },
   });
 
-  const { data: balance = 0, refetch } = useContractRead({
-    address: nftAddress,
-    abi: contractAbi,
-    functionName: "balanceOf",
-    args: [address],
-  });
-
   const interval = useRef<any>();
   const handleClick = useCallback(() => {
     if (batchMint) {
       setBalanceChanging(true);
       batchMint();
       interval.current = setInterval(() => {
-        refetch();
+        // refetch();
       }, 1000);
       setTimeout(() => {
         if (interval.current) {
@@ -116,13 +109,13 @@ export function BatchExample() {
         }
       }, 100000);
     }
-  }, [batchMint, refetch]);
+  }, [batchMint]);
 
   useEffect(() => {
     if (interval.current) {
       clearInterval(interval.current);
     }
-  }, [balance, interval]);
+  }, [interval]);
 
   const {
     data: count,
@@ -135,7 +128,7 @@ export function BatchExample() {
     watch: true,
   });
   useEffect(() => {
-    if (balance) setBalanceChanging(false);
+    setBalanceChanging(false);
   }, [count]);
 
   return (

@@ -60,8 +60,7 @@ export function Page({ children, title, description, docs }: DashboardProps) {
       justify={"flex-start"}
       mt={30}
     >
-      {matches && <ConnectButton />}
-
+      <ConnectButton />
       {children}
     </Flex>
   );
